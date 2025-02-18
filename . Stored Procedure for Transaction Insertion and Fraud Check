@@ -1,0 +1,28 @@
+CREATE PROCEDURE AddTransaction (
+    @AccountID INT,
+    @TransactionDate DATETIME,
+    @Amount DECIMAL(18, 2),
+    @TransactionType VARCHAR(50),
+    @Description VARCHAR(255)
+)
+AS
+BEGIN
+    -- Insert the transaction
+    INSERT INTO Transactions (AccountID, TransactionDate, Amount, TransactionType, Description)
+    VALUES (@AccountID, @TransactionDate, @Amount, @TransactionType, @Description);
+
+    -- Check for large transactions
+    IF ABS(@Amount) > 5000
+    BEGIN
+        PRINT 'Alert: Large transaction detected!';
+    END;
+
+    -- Check for negative balance after transaction
+    DECLARE @NewBalance DECIMAL(18,2);
+    SELECT @NewBalance = Balance + @Amount FROM Accounts WHERE AccountID = @AccountID;
+
+    IF @NewBalance < 0
+    BEGIN
+        PRINT 'Alert: Account balance negative after transaction!';
+    END;
+END;
