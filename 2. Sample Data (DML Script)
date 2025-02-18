@@ -1,0 +1,20 @@
+-- Insert Customers
+INSERT INTO Customers (CustomerID, Name, Email, PhoneNumber, Address)
+VALUES
+(1, 'John Doe', 'john@example.com', '123-456-7890', '123 Elm St'),
+(2, 'Jane Smith', 'jane@example.com', '987-654-3210', '456 Oak Ave');
+
+-- Insert Accounts
+INSERT INTO Accounts (AccountID, CustomerID, AccountType, Balance, CreatedDate)
+VALUES
+(1, 1, 'Checking', 5000.00, '2022-01-01'),
+(2, 1, 'Savings', 10000.00, '2022-01-05'),
+(3, 2, 'Checking', 7000.00, '2022-02-01');
+
+-- Insert Transactions
+INSERT INTO Transactions (TransactionID, AccountID, TransactionDate, Amount, TransactionType, Description)
+VALUES
+(1, 1, '2023-01-15 10:00:00', 200.00, 'Deposit', 'Paycheck Deposit'),
+(2, 1, '2023-01-20 12:00:00', -50.00, 'Withdrawal', 'ATM Withdrawal'),
+(3, 2, '2023-01-25 15:30:00', -100.00, 'Transfer', 'Transfer to Checking Account'),
+(4, 3, '2023-01-30 09:00:00', -1000.00, 'Withdrawal', 'Large Withdrawal Alert');
