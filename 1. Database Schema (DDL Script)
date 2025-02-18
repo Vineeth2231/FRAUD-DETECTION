@@ -1,0 +1,29 @@
+-- Create Customers Table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(15),
+    Address VARCHAR(255)
+);
+
+-- Create Accounts Table
+CREATE TABLE Accounts (
+    AccountID INT PRIMARY KEY,
+    CustomerID INT,
+    AccountType VARCHAR(50),
+    Balance DECIMAL(18,2),
+    CreatedDate DATE,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+-- Create Transactions Table
+CREATE TABLE Transactions (
+    TransactionID INT PRIMARY KEY,
+    AccountID INT,
+    TransactionDate DATETIME,
+    Amount DECIMAL(18,2),
+    TransactionType VARCHAR(50), -- 'Deposit', 'Withdrawal', 'Transfer'
+    Description VARCHAR(255),
+    FOREIGN KEY (AccountID) REFERENCES Accounts(AccountID)
+);
