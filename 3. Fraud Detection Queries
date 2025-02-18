@@ -1,0 +1,20 @@
+-- Transactions over $5,000
+SELECT * FROM Transactions
+WHERE ABS(Amount) > 5000;
+
+-- Detect multiple transactions within 5 minutes from the same account
+SELECT t1.TransactionID, t1.AccountID, t1.TransactionDate, t1.Amount
+FROM Transactions t1
+JOIN Transactions t2
+ON t1.AccountID = t2.AccountID
+AND t1.TransactionID <> t2.TransactionID
+AND ABS(DATEDIFF(MINUTE, t1.TransactionDate, t2.TransactionDate)) <= 5
+ORDER BY t1.TransactionDate;
+
+-- Identify accounts with negative balances after transactions
+SELECT a.AccountID, a.Balance, t.Amount, t.TransactionDate
+FROM Accounts a
+JOIN Transactions t ON a.AccountID = t.AccountID
+WHERE a.Balance + t.Amount < 0;
+
+
